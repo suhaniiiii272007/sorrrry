@@ -1,69 +1,259 @@
+"use client";
+
 import Image from "next/image";
+import { useState, type FormEvent } from "react";
+import { createPortal } from "react-dom";
+import { FaHeart } from "react-icons/fa";
 
 export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+  const [code, setCode] = useState("");
+  const [hint, setHint] = useState("");
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [modalStep, setModalStep] = useState<
+    "closed" | "please" | "apology" | "please-again"
+  >("closed");
+  const [isForgiven, setIsForgiven] = useState(false);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    if (code === "1927") {
+      setHint("");
+      setIsUnlocked(true);
+      return;
+    }
+
+    setHint("Hint: It’s a combination of our birthdates.");
+  }
+
+  if (isUnlocked) {
+    return (
+      <main className="login-page">
+        <section className="login-card welcome-card" aria-live="polite">
+          <Image
+            alt="A sad animated face"
+            className="welcome-gif"
+            height={300}
+            src="/sad.gif"
+            unoptimized
+            width={300}
+          />
+          <h1 className="welcome-heading">
+            <em>Heyy... 😭</em>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+          <div className="welcome-message">
+            <p className="login-description">mujhe pta h tum naraz ho 😢</p>
+            <p className="login-description">
+              aur mujhe yeh bhi pta h maine glti ki h plzzz meri bt sunlo
+            </p>
+          </div>
+          <div className="answer-buttons">
+            <button
+              className="answer-button answer-yes"
+              onClick={() => {
+                setIsForgiven(false);
+                setModalStep("apology");
+              }}
+              type="button"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              theek h bolo
+            </button>
+            <button
+              className="answer-button answer-no"
+              onClick={() => {
+                setIsForgiven(false);
+                setModalStep("please");
+              }}
+              type="button"
             >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+              nhi, abhi gussa huuu
+            </button>
+          </div>
+        </section>
+        {modalStep !== "closed" &&
+          createPortal(
+            <div
+              className="sorry-modal-backdrop"
+              onClick={() => setModalStep("closed")}
+            >
+              <section
+                aria-labelledby="sorry-modal-title"
+                aria-modal="true"
+                className={`sorry-modal${modalStep !== "please" ? " apology-modal" : ""}`}
+                onClick={(event) => event.stopPropagation()}
+                role="dialog"
+              >
+                {modalStep === "please" ? (
+                  <>
+                    <Image
+                      alt="A cute crying face"
+                      className="sorry-modal-gif"
+                      height={120}
+                      src="/cryyy.gif"
+                      unoptimized
+                      width={120}
+                    />
+                    <h2 id="sorry-modal-title">Please na... 🥺</h2>
+                    <p>
+                      Bas ek chance do mujhe... Main sach mein sorry bolna
+                      chahta hoon. Please?
+                    </p>
+                    <span className="sorry-modal-hearts" aria-hidden="true">
+                      💕
+                    </span>
+                    <button
+                      className="sorry-modal-button"
+                      onClick={() => setModalStep("apology")}
+                      type="button"
+                    >
+                      Okay Bolo
+                    </button>
+                  </>
+                ) : modalStep === "please-again" ? (
+                  <>
+                    <Image
+                      alt="A pleading animated face"
+                      className="sorry-modal-gif"
+                      height={180}
+                      src="/please.gif"
+                      unoptimized
+                      width={180}
+                    />
+                    <h2 id="sorry-modal-title">Please na... 🥺</h2>
+                    <button
+                      className="sorry-modal-button"
+                      onClick={() => {
+                        setIsForgiven(true);
+                        setModalStep("apology");
+                      }}
+                      type="button"
+                    >
+                      okaaaay maaf kiyyaa
+                    </button>
+                  </>
+                ) : isForgiven ? (
+                  <>
+                    <Image
+                      alt="A tulip-themed gift"
+                      className="sorry-modal-gif gift-modal-gif"
+                      height={280}
+                      src="/tulip.gif"
+                      unoptimized
+                      width={280}
+                    />
+                    <h2 id="sorry-modal-title">Thanku! 😍</h2>
+                    <p className="gift-modal-message">
+                      You are the prettiest flower in my garden of life. I love you so much and I’m really sorry for hurting you. I promise to be more careful and loving from now on. Please accept this little gift as a token of my love and apology.
+                    </p>
+                    <p className="gift-modal-message">
+                      I hope it brings a smile to your face, just like you always bring joy to mine.
+                    </p>
+                    <p className="gift-modal-message">
+                      Forever yours, with all my love. 💖
+                    </p>
+                    <p className="gift-modal-message">
+                      This is the little tulip I picked for you, just like the one in our special place. 🌷
+                    </p>
+                    <p className="gift-modal-message">
+                      i can say sorry a million times, but it won&apos;t be enough to express how much I regret hurting you. Please forgive me, my love. 💔 I can&apos;t live without youuuu yrrrrr. you are only mineeeeee.
+                    </p>
+                    <p className="gift-modal-love">I love you so muchhh ♥</p>
+                  </>
+                ) : (
+                  <>
+                    <h2 id="sorry-modal-title" className="apology-heading">
+                      Dil Se Sorry... 💕
+                    </h2>
+                    <h3 >Meri jaan...</h3>
+                    <div className="apology-copy">
+                      <p>
+                        Mujhe pata hai maine tumhe hurt kiya. Ye soch ke bohot
+                        bura lagta hai.
+                      </p>
+                      <p>
+                        Tum mere liye kitne special ho, words mein nahi bata
+                        sakta.
+                      </p>
+                      <p>
+                        Jo bhi hua, uska koi excuse nahi. Maine galti ki aur
+                        main accept karta hoon.
+                      </p>
+                      <p>
+                        Tumhari feelings matter karti hain mujhe. Bohot zyada.
+                      </p>
+                      <p>
+                        Main promise karta hoon agli baar se zyada careful
+                        rahunga.
+                      </p>
+                      <p>
+                        Tum mujhe itna pyaar dete ho, aur maine tumhe takleef
+                        di. I’m really sorry.
+                      </p>
+                      <p className="flex justify-start gap-2">Please mujhe ek aur chance do? <span><FaHeart color="red" size="16"/></span>
+                      </p>
+                    </div>
+                    <div className="apology-actions">
+                      <button
+                        className="sorry-modal-button apology-yes-button"
+                        onClick={() => setIsForgiven(true)}
+                        type="button"
+                      >
+                        theek h maaf kiya
+                      </button>
+                      <button
+                        className="sorry-modal-button apology-no-button"
+                        onClick={() => setModalStep("please-again")}
+                        type="button"
+                      >
+                        nhi krungi
+                      </button>
+                    </div>
+                  </>
+                )}
+              </section>
+            </div>,
+            document.body,
+          )}
       </main>
-    </div>
+    );
+  }
+
+  return (
+    <main className="login-page">
+      <section className="login-card">
+        <div className="login-heart" aria-hidden="true">
+          <FaHeart color="red" size={30}/>
+        </div>
+        <p className="login-eyebrow">JUST FOR US</p>
+        <h1>Heyyy Suhaniiiii</h1>
+        <p className="login-description">
+          Enter our special code to continue.
+        </p>
+
+        <form className="login-form" onSubmit={handleSubmit}>
+          <label htmlFor="special-code">Our special code</label>
+          <input
+            autoComplete="off"
+            id="special-code"
+            inputMode="numeric"
+            maxLength={4}
+            onChange={(event) => {
+              setCode(event.target.value.replace(/\D/g, ""));
+              setHint("");
+            }}
+            placeholder="••••"
+            type="password"
+            value={code}
+            aria-describedby={hint ? "login-hint" : undefined}
+          />
+          {hint && (
+            <p className="login-hint" id="login-hint" role="status">
+              {hint}
+            </p>
+          )}
+          <button type="submit">Unlock</button>
+        </form>
+      </section>
+    </main>
   );
 }
