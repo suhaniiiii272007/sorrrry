@@ -164,7 +164,7 @@ export default function Home() {
                     <h2 id="sorry-modal-title" className="apology-heading">
                       Dil Se Sorry... 💕
                     </h2>
-                    <h3 >Meri jaan...</h3>
+                    <h3 >Suhaniii yrrrr.....</h3>
                     <div className="apology-copy">
                       <p>
                         Mujhe pata hai maine tumhe hurt kiya. Ye soch ke bohot
