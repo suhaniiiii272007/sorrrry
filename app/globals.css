@@ -49,6 +49,9 @@ body {
 
 .welcome-card {
   width: min(100%, 560px);
+  border-color: rgb(98 42 155 / 24%);
+  background: #e9ddf7;
+  box-shadow: 0 24px 80px rgb(0 0 0 / 35%);
 }
 
 .login-heart {
@@ -68,7 +71,7 @@ body {
   width: min(100%, 300px);
   height: auto;
   margin: 0 auto 22px;
-  border: 2px solid rgb(255 255 255 / 65%);
+  border: 2px solid rgb(98 42 155 / 24%);
   border-radius: 18px;
 }
 
@@ -81,7 +84,7 @@ body {
 }
 
 .welcome-heading em {
-  color: #fff;
+  color: #3e2858;
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(42px, 8vw, 54px);
   font-style: italic;
@@ -97,12 +100,12 @@ body {
 }
 
 .welcome-message .login-description:first-child {
-  color: #e779aa;
+  color: #8e3f78;
   font-size: 18px;
 }
 
 .welcome-message .login-description:last-child {
-  color: #d2d2df;
+  color: #49345e;
 }
 
 .answer-button {
@@ -132,24 +135,26 @@ body {
   outline-offset: 3px;
 }
 
-.answer-yes {
-  border-color: rgb(255 255 255 / 18%);
-  background: #d84f91;
-  color: #351326;
+.welcome-card .answer-buttons .answer-button.answer-yes {
+  border-color: rgb(62 40 88 / 30%);
+  background-color: #622a9b;
+  box-shadow: 0 8px 24px rgb(98 42 155 / 22%);
+  color: #fff;
 }
 
-.answer-no {
-  border-color: rgb(255 255 255 / 8%);
-  background: #343740;
-  color: #d6d7df;
+.welcome-card .answer-buttons .answer-button.answer-no {
+  border-color: rgb(62 40 88 / 30%);
+  background-color: #622a9b;
+  box-shadow: 0 8px 24px rgb(98 42 155 / 22%);
+  color: #fff;
 }
 
-.answer-no:hover {
-  background: #41444e;
+.welcome-card .answer-buttons .answer-button.answer-no:hover {
+  background-color: #773ab2;
 }
 
-.answer-yes:hover {
-  background: #e15d9d;
+.welcome-card .answer-buttons .answer-button.answer-yes:hover {
+  background-color: #773ab2;
 }
 
 .sorry-modal-backdrop {
@@ -284,8 +289,9 @@ body {
 
 .apology-actions {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   width: 100%;
-  /* align-items: stretch; */
   gap: 12px;
   margin-top: 2px;
 }
@@ -407,4 +413,12 @@ body {
     padding: 36px 24px 30px;
   }
 
+  .apology-actions {
+    flex-direction: column;
+  }
+
+  .apology-actions .sorry-modal-button {
+    flex: 0 0 auto;
+    width: 100%;
+  }
 }
