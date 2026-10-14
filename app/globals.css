@@ -409,6 +409,15 @@ body {
 }
 
 @media (max-width: 480px) {
+  .sorry-modal-backdrop {
+    padding: 24px;
+  }
+
+  .sorry-modal {
+    width: 100%;
+    padding: 24px 20px;
+  }
+
   .login-card {
     padding: 36px 24px 30px;
   }

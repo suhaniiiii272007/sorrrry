@@ -134,10 +134,10 @@ export default function Home() {
                 ) : isForgiven ? (
                   <>
                     <Image
-                      alt="A tulip-themed gift"
+                      alt="A lavender-themed gift"
                       className="sorry-modal-gif gift-modal-gif"
                       height={280}
-                      src="/tulip.gif"
+                      src="/lavnder.gif"
                       unoptimized
                       width={280}
                     />
@@ -152,7 +152,7 @@ export default function Home() {
                       Forever yours, with all my love. 💖
                     </p>
                     <p className="gift-modal-message">
-                      This is the little tulip I picked for you, just like the one in our special place. 🌷
+                      This is the little lavender I picked for you, just like the one in our special place. 💜
                     </p>
                     <p className="gift-modal-message">
                       i can say sorry a million times, but it won&apos;t be enough to express how much I regret hurting you. Please forgive me, my love. 💔 I can&apos;t live without youuuu yrrrrr. you are only mineeeeee.
@@ -179,7 +179,7 @@ export default function Home() {
                         main accept karta hoon.
                       </p>
                       <p>
-                        Tumhari feelings matter karti hain mujhe. Bohot zyada.
+                        Tumhari feelings matter karti hain mujhe Bohot zyada.
                       </p>
                       <p>
                         Main promise karta hoon agli baar se zyada careful
